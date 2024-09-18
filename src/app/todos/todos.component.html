@@ -1,0 +1,13 @@
+<div>
+  <h1>Todo List</h1>
+  <ul>
+    <p>test</p>
+    @for (todo of todos; track todo.id) {
+    <li>
+      <a routerLink="/todo/{{ todo.id }}" routerLinkActive="active">{{
+        todo.title
+      }}</a>
+    </li>
+    }
+  </ul>
+</div>
