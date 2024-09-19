@@ -1,7 +1,6 @@
-<div>
+<div class="todos-container">
   <h1>Todo List</h1>
-  <ul>
-    <p>test</p>
+  <ul class="todos-list">
     @for (todo of todos; track todo.id) {
     <li>
       <a routerLink="/todo/{{ todo.id }}" routerLinkActive="active">{{
