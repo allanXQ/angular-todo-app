@@ -1,13 +1,109 @@
+/* Container Styles */
 .todos-container {
   width: 60vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  max-width: 800px; /* Limits the maximum width for better readability */
+  margin: 0 auto; /* Centers the container */
+  padding: 20px;
+  background-color: #f9f9f9; /* Light background for contrast */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
-.todos-list {
+
+/* Heading Styles */
+.todos-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Table Styles */
+.todos-table {
   width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+}
+
+.todos-table thead {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.todos-table th,
+.todos-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.todos-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.status-completed {
+  color: green;
+  font-weight: bold;
+}
+
+.status-pending {
+  color: orange;
+  font-weight: bold;
+}
+
+.actions {
   display: flex;
-  flex-direction: column;
-  gap: 5px;
+  gap: 10px;
+}
+
+.btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.view-button {
+  background-color: #17a2b8;
+  color: #fff;
+}
+
+.view-button:hover {
+  background-color: #138496;
+}
+
+.edit-button {
+  background-color: #ffc107;
+  color: #fff;
+}
+
+.edit-button:hover {
+  background-color: #e0a800;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .todos-container {
+    width: 90vw;
+    padding: 10px;
+  }
+
+  .todos-table th,
+  .todos-table td {
+    padding: 8px 10px;
+  }
+
+  .btn {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
 }

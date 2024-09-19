@@ -1,6 +1,6 @@
 <div class="todos-container">
   <h1>Todo List</h1>
-  <table>
+  <table class="todos-table">
     <thead>
       <tr>
         <th>Task</th>
@@ -14,10 +14,17 @@
       <tr>
         <td>{{ todo.title }}</td>
         <td>{{ todo.description }}</td>
-        <td>{{ todo.completed }}</td>
-        <td>
-          <button (click)="editTodo(todo.id)">Edit</button>
-          <button (click)="deleteTodo(todo.id)">Delete</button>
+        <td>{{ todo.completed ? "Completed" : "Pending" }}</td>
+        <td class="actions">
+          <button class="btn view-button" (click)="viewTodo(todo.id)">
+            View
+          </button>
+          <button class="btn edit-button" (click)="editTodo(todo.id)">
+            Edit
+          </button>
+          <button class="btn delete-button" (click)="deleteTodo(todo.id)">
+            Delete
+          </button>
         </td>
       </tr>
       }

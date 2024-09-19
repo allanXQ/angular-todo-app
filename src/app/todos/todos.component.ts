@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-todos',
@@ -9,6 +9,8 @@ import { RouterModule } from '@angular/router';
   styleUrl: './todos.component.css',
 })
 export class TodosComponent {
+  constructor(private router: Router) {}
+
   todos = [
     {
       id: 1,
@@ -42,8 +44,12 @@ export class TodosComponent {
     },
   ];
 
-  editTodo = (todo: number) => {
-    console.log('Edit Todo:', todo);
+  viewTodo = (id: number): void => {
+    this.router.navigate(['/todo', id]);
+  };
+
+  editTodo = (id: number) => {
+    this.router.navigate(['/edit', id]);
   };
   deleteTodo = (todo: number) => {
     console.log('Delete Todo:', todo);
