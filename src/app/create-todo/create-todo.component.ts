@@ -18,13 +18,13 @@ interface Todo {
 export class CreateTodoComponent {
   createTodoForm;
 
-  onSubmit = () => {
-    console.log(
-      'createtodoform',
-      this.createTodoForm.value,
-      this.createTodoForm.invalid
-    );
-  };
+  onSubmit() {
+    if (this.createTodoForm.invalid) {
+      this.createTodoForm.markAllAsTouched(); // Marks all fields as touched to trigger error display
+    } else {
+      console.log('Todo Created:', this.createTodoForm.value);
+    }
+  }
 
   constructor(private fb: FormBuilder) {
     this.createTodoForm = this.fb.group({
@@ -37,5 +37,9 @@ export class CreateTodoComponent {
   hasError(field: string, errorType: string): boolean {
     const control = this.createTodoForm.get(field);
     return control ? control.hasError(errorType) && control.touched : false;
+  }
+
+  isSubmitted() {
+    return this.createTodoForm.invalid && this.createTodoForm.touched;
   }
 }
