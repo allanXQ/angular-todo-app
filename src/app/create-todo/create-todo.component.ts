@@ -17,11 +17,6 @@ interface Todo {
 export class CreateTodoComponent {
   createTodoForm;
 
-  todo: Todo = {} as Todo;
-  createTodo = (todo: Todo) => {
-    console.log(todo);
-  };
-
   onSubmit = () => {
     console.log('createtodoform', this.createTodoForm.value);
   };
