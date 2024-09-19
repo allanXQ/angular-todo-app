@@ -10,17 +10,20 @@ export const routes: Routes = [
     redirectTo: '/todos',
     pathMatch: 'full',
   },
-  { path: 'todos', component: TodosComponent },
+  { path: 'todos', title: 'Todos', component: TodosComponent },
   {
     path: 'todo/:todoId',
+    title: 'Todo Details',
     component: TodoComponent,
   },
   {
     path: 'edit/:todoId',
+    title: 'Edit Todo',
     component: EditTodoComponent,
   },
   {
     path: 'create-todo',
+    title: 'Create Todo',
     component: CreateTodoComponent,
   },
 ];
