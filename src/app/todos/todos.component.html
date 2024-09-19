@@ -1,12 +1,26 @@
 <div class="todos-container">
   <h1>Todo List</h1>
-  <ul class="todos-list">
-    @for (todo of todos; track todo.id) {
-    <li>
-      <a routerLink="/todo/{{ todo.id }}" routerLinkActive="active">{{
-        todo.title
-      }}</a>
-    </li>
-    }
-  </ul>
+  <table>
+    <thead>
+      <tr>
+        <th>Task</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for ( todo of todos; track todo.id){
+      <tr>
+        <td>{{ todo.title }}</td>
+        <td>{{ todo.description }}</td>
+        <td>{{ todo.completed }}</td>
+        <td>
+          <button (click)="editTodo(todo.id)">Edit</button>
+          <button (click)="deleteTodo(todo.id)">Delete</button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
 </div>
