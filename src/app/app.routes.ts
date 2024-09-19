@@ -6,7 +6,7 @@ import { TodoComponent } from './todo/todo.component';
 export const routes: Routes = [
   { path: 'todos', component: TodosComponent },
   {
-    path: 'todo/:id',
+    path: 'todo/:todoId',
     component: TodoComponent,
   },
   {
