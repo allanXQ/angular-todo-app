@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 interface Todo {
   title: string;
@@ -15,8 +15,22 @@ interface Todo {
   styleUrl: './create-todo.component.css',
 })
 export class CreateTodoComponent {
+  createTodoForm;
+
   todo: Todo = {} as Todo;
   createTodo = (todo: Todo) => {
     console.log(todo);
   };
+
+  onSubmit = () => {
+    console.log('createtodoform', this.createTodoForm.value);
+  };
+
+  constructor(private fb: FormBuilder) {
+    this.createTodoForm = this.fb.group({
+      title: '',
+      description: '',
+      completed: false,
+    });
+  }
 }

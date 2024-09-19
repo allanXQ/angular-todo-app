@@ -1,4 +1,8 @@
-<form class="create-todo-form">
+<form
+  class="create-todo-form"
+  [formGroup]="createTodoForm"
+  (ngSubmit)="onSubmit()"
+>
   <h3>Create Todo</h3>
   <div class="form-group">
     <label for="title">Title</label>
@@ -9,6 +13,7 @@
       required
       class="form-control"
       placeholder="Enter todo title"
+      formControlName="title"
     />
   </div>
 
@@ -21,6 +26,7 @@
       class="form-control"
       placeholder="Enter todo description"
       rows="4"
+      formControlName="description"
     ></textarea>
   </div>
 
