@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 interface Todo {
   title: string;
@@ -9,7 +10,7 @@ interface Todo {
 @Component({
   selector: 'app-create-todo',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './create-todo.component.html',
   styleUrl: './create-todo.component.css',
 })
