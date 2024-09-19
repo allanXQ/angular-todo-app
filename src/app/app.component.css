@@ -1,6 +1,21 @@
+nav {
+  display: flex;
+}
+main {
+  display: flex;
+  flex-direction: column;
+}
+nav,
+main {
+  width: 50vw;
+  align-items: center;
+  justify-content: center;
+}
+
 nav ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
+  width: 100%;
 }
