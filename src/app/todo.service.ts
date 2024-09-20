@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
-
-interface Todo {
-  id: number;
-  title: string;
-  description: string;
-  completed: boolean;
-}
+import { Todo } from './interfaces';
 
 @Injectable({
   providedIn: 'root',
