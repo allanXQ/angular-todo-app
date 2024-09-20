@@ -26,6 +26,6 @@ export class TodosComponent {
   }
 
   editTodo(id: number) {
-    this.router.navigate(['/todos', id, 'edit']);
+    this.router.navigate(['/edit', id]);
   }
 }
