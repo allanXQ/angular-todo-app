@@ -16,7 +16,7 @@ export class TodosComponent {
   }
 
   viewTodo(id: number) {
-    this.router.navigate(['/todos', id]);
+    this.router.navigate(['/todo', id]);
   }
 
   deleteTodo(id: number) {
