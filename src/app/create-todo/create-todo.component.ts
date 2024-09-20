@@ -20,7 +20,7 @@ export class CreateTodoComponent {
 
   onSubmit() {
     if (this.createTodoForm.invalid) {
-      this.createTodoForm.markAllAsTouched(); // Marks all fields as touched to trigger error display
+      this.createTodoForm.markAllAsTouched();
     } else {
       console.log('Todo Created:', this.createTodoForm.value);
     }
