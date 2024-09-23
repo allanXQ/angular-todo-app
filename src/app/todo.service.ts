@@ -23,4 +23,8 @@ export class TodoService {
   createTodo(todo: Todo) {
     return this.http.post<Todo>(this.apiUrl, todo);
   }
+
+  updateTodoById(id: number, todo: Todo) {
+    return this.http.put<Todo>(`${this.apiUrl}/${id}`, todo);
+  }
 }
