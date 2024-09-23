@@ -19,4 +19,8 @@ export class TodoService {
   getTodoById(id: number) {
     return this.http.get<Todo>(`${this.apiUrl}/${id}`);
   }
+
+  createTodo(todo: Todo) {
+    return this.http.post<Todo>(this.apiUrl, todo);
+  }
 }

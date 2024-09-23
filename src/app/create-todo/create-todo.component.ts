@@ -1,12 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-
-interface Todo {
-  title: string;
-  description: string;
-  completed: boolean;
-}
+import { TodoService } from '../todo.service';
+import { Todo } from '../interfaces';
 
 @Component({
   selector: 'app-create-todo',
@@ -22,11 +18,23 @@ export class CreateTodoComponent {
     if (this.createTodoForm.invalid) {
       this.createTodoForm.markAllAsTouched();
     } else {
-      console.log('Todo Created:', this.createTodoForm.value);
+      const todo: Todo = {
+        title: this.createTodoForm.value.title || 'ddd',
+        description: this.createTodoForm.value.description || 'ddd',
+        completed: this.createTodoForm.value.completed || false,
+      };
+      this.todoService.createTodo(todo).subscribe({
+        next: (response) => {
+          console.log('Todo Created:', response);
+        },
+        error: (error) => {
+          alert(error);
+        },
+      });
     }
   }
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private todoService: TodoService) {
     this.createTodoForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],

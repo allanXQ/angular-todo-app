@@ -11,29 +11,33 @@ import { Todo } from '../interfaces';
 })
 export class TodoComponent implements OnInit {
   todoId!: number;
-  todo!: Todo;
+  todo: Todo;
 
-  constructor(
-    private todoService: TodoService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private todoService: TodoService, private route: ActivatedRoute) {
+    this.todo = {
+      title: '',
+      description: '',
+      completed: false,
+    };
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       const idParam = params.get('todoId');
       this.todoId = Number(idParam);
 
-      if (this.todoId !== 0) {
-        this.todoService.getTodoById(this.todoId).subscribe((todo) => {
+      this.todoService.getTodoById(this.todoId).subscribe({
+        next: (todo) => {
           if (todo) {
             this.todo = todo;
           } else {
-            console.error(`Todo with id ${this.todoId} not found.`);
+            alert(`Todo with id ${this.todoId} not found.`);
           }
-        });
-      } else {
-        console.error('Invalid or missing todo ID in route parameters.');
-      }
+        },
+        error: (error) => {
+          alert(error.message);
+        },
+      });
     });
   }
 }
