@@ -21,7 +21,7 @@ export class TodoComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       const idParam = params.get('todoId');
-      this.todoId = idParam ? Number(idParam) : 0;
+      this.todoId = Number(idParam);
 
       if (this.todoId !== 0) {
         this.todoService.getTodoById(this.todoId).subscribe((todo) => {

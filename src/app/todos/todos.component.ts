@@ -11,18 +11,13 @@ import { Todo } from '../interfaces';
   styleUrl: './todos.component.css',
 })
 export class TodosComponent implements OnInit {
-  todos: Todo[] = [];
+  todos: any;
   error: any;
   constructor(private router: Router, private todoService: TodoService) {}
 
-  ngOnInit(): void {
-    this.fetchTodos();
-  }
-
-  fetchTodos() {
-    this.todoService.getTodos().subscribe({
-      next: (data) => (this.todos = data),
-      error: (err) => (this.error = err),
+  ngOnInit() {
+    this.todoService.getTodos().subscribe((todos) => {
+      this.todos = todos;
     });
   }
 
@@ -30,14 +25,7 @@ export class TodosComponent implements OnInit {
     this.router.navigate(['/todo', id]);
   }
 
-  deleteTodo(id: number) {
-    this.todoService.deleteTodoById(id);
-    this.todoService.getTodos().subscribe({
-      next: (data) => (this.todos = data),
-      error: (err) => (this.error = err),
-    });
-    console.log('Todo Deleted:', this.todos);
-  }
+  deleteTodo(id: number) {}
 
   editTodo(id: number) {
     this.router.navigate(['/edit', id]);
