@@ -24,12 +24,13 @@ export class TodoComponent implements OnInit {
       this.todoId = idParam ? Number(idParam) : 0;
 
       if (this.todoId !== 0) {
-        const todo = this.todoService.getTodoById(this.todoId);
-        if (todo) {
-          this.todo = todo;
-        } else {
-          console.error(`Todo with id ${this.todoId} not found.`);
-        }
+        this.todoService.getTodoById(this.todoId).subscribe((todo) => {
+          if (todo) {
+            this.todo = todo;
+          } else {
+            console.error(`Todo with id ${this.todoId} not found.`);
+          }
+        });
       } else {
         console.error('Invalid or missing todo ID in route parameters.');
       }

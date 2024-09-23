@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TodoService } from '../todo.service';
+import { Todo } from '../interfaces';
 
 @Component({
   selector: 'app-todos',
@@ -9,10 +10,20 @@ import { TodoService } from '../todo.service';
   templateUrl: './todos.component.html',
   styleUrl: './todos.component.css',
 })
-export class TodosComponent {
-  todos;
-  constructor(private router: Router, private todoService: TodoService) {
-    this.todos = this.todoService.getTodos();
+export class TodosComponent implements OnInit {
+  todos: Todo[] = [];
+  error: any;
+  constructor(private router: Router, private todoService: TodoService) {}
+
+  ngOnInit(): void {
+    this.fetchTodos();
+  }
+
+  fetchTodos() {
+    this.todoService.getTodos().subscribe({
+      next: (data) => (this.todos = data),
+      error: (err) => (this.error = err),
+    });
   }
 
   viewTodo(id: number) {
@@ -21,7 +32,10 @@ export class TodosComponent {
 
   deleteTodo(id: number) {
     this.todoService.deleteTodoById(id);
-    this.todos = this.todoService.getTodos();
+    this.todoService.getTodos().subscribe({
+      next: (data) => (this.todos = data),
+      error: (err) => (this.error = err),
+    });
     console.log('Todo Deleted:', this.todos);
   }
 

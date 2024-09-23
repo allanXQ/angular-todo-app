@@ -1,72 +1,49 @@
 import { Injectable } from '@angular/core';
 import { Todo } from './interfaces';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
-  todos;
-  constructor() {
-    this.todos = [
-      {
-        id: 1,
-        title: 'Learn Angular 2',
-        description: 'Learn Angular 2 by building a simple app',
-        completed: false,
-      },
-      {
-        id: 2,
-        title: 'Learn Angular 2 Router',
-        description: 'Learn Angular 2 Router by building a simple app',
-        completed: false,
-      },
-      {
-        id: 3,
-        title: 'Learn Angular 2 Forms',
-        description: 'Learn Angular 2 Forms by building a simple app',
-        completed: false,
-      },
-      {
-        id: 4,
-        title: 'Learn Angular 2 Services',
-        description: 'Learn Angular 2 Services by building a simple app',
-        completed: false,
-      },
-      {
-        id: 5,
-        title: 'Learn Angular 2 Pipes',
-        description: 'Learn Angular 2 Pipes by building a simple app',
-        completed: false,
-      },
-    ];
+  private apiUrl = 'http://localhost:3000/todos';
+
+  constructor(private http: HttpClient) {}
+
+  getTodos(): Observable<Todo[]> {
+    return this.http.get<Todo[]>(this.apiUrl);
   }
 
-  getTodos() {
-    return this.todos;
+  getTodoById(id: number): Observable<Todo | undefined> {
+    return this.getTodos().pipe(
+      map((todos) => todos.find((todo) => todo.id === id))
+    );
   }
 
-  getTodoById(id: number) {
-    return this.todos.find((todo) => todo.id === id);
+  createTodo(todo: Todo): Observable<Todo> {
+    return this.http.post<Todo>(this.apiUrl, todo);
   }
 
-  createTodo(todo: Todo) {
-    this.todos.push(todo);
+  updateTodo(todo: Todo): Observable<Todo> {
+    return this.http.put<Todo>(`${this.apiUrl}/${todo.id}`, todo);
   }
 
-  updateTodo(todo: Todo) {
-    const index = this.todos.findIndex((t) => t.id === todo.id);
-    this.todos[index] = todo;
+  deleteTodoById(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  deleteTodoById(id: number) {
-    const index = this.todos.findIndex((todo) => todo.id === id);
-    if (index !== -1) {
-      this.todos.splice(index, 1); // Modifies the array in place
-    }
-  }
-
-  toggleTodoCompleted(id: number) {
-    const todo = this.getTodoById(id);
-    todo ? (todo.completed = !todo.completed) : null;
+  toggleTodoCompleted(id: number): Observable<Todo> {
+    return this.getTodoById(id).pipe(
+      map((todo) => {
+        if (todo) {
+          todo.completed = !todo.completed;
+          return todo;
+        }
+        throw new Error('Todo not found');
+      }),
+      switchMap((updatedTodo) => this.updateTodo(updatedTodo))
+    );
   }
 }
