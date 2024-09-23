@@ -25,7 +25,16 @@ export class TodosComponent implements OnInit {
     this.router.navigate(['/todo', id]);
   }
 
-  deleteTodo(id: number) {}
+  deleteTodo(id: number) {
+    this.todoService.deleteTodoById(id).subscribe({
+      next: () => {
+        this.todos = this.todos.filter((todo: Todo) => todo.id !== id);
+      },
+      error: (error) => {
+        this.error = error;
+      },
+    });
+  }
 
   editTodo(id: number) {
     this.router.navigate(['/edit', id]);
